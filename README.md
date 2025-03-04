@@ -20,5 +20,5 @@ If the AGPL license doesn't suit your needs, a version under more permissive ter
 
 ## Inspiration & Influences
 
-This crate is inspired by and uses/used https://lib.rs/crates/axum-typed-routing & https://lib.rs/crates/route_controller .
+This crate is inspired by and uses/used [axum-typed-routing](https://lib.rs/crates/axum-typed-routing) & [route_controller](https://lib.rs/crates/route_controller) .
 I basically just merged their public API into a single coherent one to get the best of both worlds.

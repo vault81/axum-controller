@@ -10,7 +10,7 @@
     ];
   };
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     rust-overlay.url = "github:oxalica/rust-overlay";
     flake-utils.url = "github:numtide/flake-utils";
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -53,7 +53,6 @@
         ];
       in
       {
-        apps.devshell = self.outputs.devShells.${system}.default.flakeApp;
         devShells.default = pkgs.mkShell {
           packages = with pkgs;
             [
@@ -90,5 +89,18 @@
             export MALLOC_CONF=thp:always,metadata_thp:always
           '';
         };
-      });
+        packages = {
+          default = pkgs.callPackage ./package.nix { };
+        };
+      }) // {
+      hydraJobs =
+        let
+          system = "x86_64-linux";
+          packages = self.packages."${system}";
+          devShells = self.devShells."${system}";
+        in
+        {
+          inherit packages devShells;
+        };
+    };
 }

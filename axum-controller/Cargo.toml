@@ -1,0 +1,26 @@
+[package]
+authors.workspace = true
+categories.workspace = true
+description.workspace = true
+edition.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+license.workspace = true
+name = "axum-controller"
+readme = "./README.md"
+repository.workspace = true
+version.workspace = true
+
+[dependencies]
+axum-controller-macros = { path = "../axum-controller-macros", version = "0.1.0" }
+axum-typed-routing = { git = "https://github.com/jvdwrf/axum-typed-routing?ref=160684a406d616974d851bbfc6d0d9ffa65367e5", version = "0.2.0" } # version with axum 0.8 compat isn't pushed sadly
+
+[dev-dependencies]
+axum = "0.8"
+axum-test = { version = "17", features = [] }
+json = "0.12"
+serde = { version = "1", features = ["derive"] }
+tokio = { version = "1", features = ["full"] }
+
+[features]
+default = []

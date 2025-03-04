@@ -18,7 +18,7 @@ This repository, like all my personal projects, is licensed under the **GNU Affe
 If the AGPL license doesn't suit your needs, a version under more permissive terms (like **MIT**, **Apache**, or **BSD** license) is available for a small fee. Please contact me directly via the email in the crate metadata for licensing inquiries.
 
 
-## Insipration & Influences
+## Inspiration & Influences
 
 This crate is inspired by and uses/used https://lib.rs/crates/axum-typed-routing & https://lib.rs/crates/route_controller .
 I basically just merged their public API into a single coherent one to get the best of both worlds.

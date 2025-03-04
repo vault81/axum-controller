@@ -13,7 +13,6 @@
 //! ```
 #![doc = include_str!("../examples/controller.rs")]
 //! ```
-//!
 
 pub use axum_controller_macros::controller;
 pub use axum_typed_routing::TypedRouter;

@@ -3,9 +3,7 @@
 
 # Axum-Controller
 
-Helper macro for [axum-typed-routing](https://github.com/jvdwrf/axum-typed-routing).
-
-Adds a `#[controller(...)]` & `#[route(...)]` macro for less boilerplate when wiring up axum routes.
+Helper macro's for wiring up axum routes with less boilerplate.
 
 See example [here](axum-controller/examples/controller.rs).
 

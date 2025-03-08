@@ -151,7 +151,7 @@ pub fn controller(attr: TokenStream, item: TokenStream) -> TokenStream {
     // one where it's #state
     let from_controller_into_router_impl = quote! {
         impl #struct_name {
-            fn into_router(&self, state: #state) -> axum::Router<#state> {
+            fn into_router(state: #state) -> axum::Router<#state> {
                 let __nested_router = axum::Router::new()
                     #(#route_calls)*
                     #(#middleware_calls)*

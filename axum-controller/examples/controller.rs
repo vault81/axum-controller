@@ -39,5 +39,5 @@ impl ExampleController {
 }
 
 fn main() {
-    let _router: axum::Router<AppState>= ExampleController.into_router(AppState());
+    let _router: axum::Router<AppState> = ExampleController::into_router(AppState());
 }

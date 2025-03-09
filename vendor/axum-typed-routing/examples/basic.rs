@@ -1,16 +1,16 @@
 #![allow(unused)]
-use axum::extract::{State, Json};
-use axum_typed_routing::{TypedRouter, route};
+use axum::extract::{Json, State};
+use axum_typed_routing::{route, TypedRouter};
 
 #[route(GET "/item/:id?amount&offset")]
 async fn item_handler(
-   id: u32,
-   amount: Option<u32>,
-   offset: Option<u32>,
-   State(state): State<String>,
-   Json(json): Json<u32>,
+    id: u32,
+    amount: Option<u32>,
+    offset: Option<u32>,
+    State(state): State<String>,
+    Json(json): Json<u32>,
 ) -> String {
-   todo!("handle request")
+    todo!("handle request")
 }
 
 fn main() {

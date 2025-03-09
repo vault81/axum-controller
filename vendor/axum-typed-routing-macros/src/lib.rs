@@ -25,9 +25,9 @@ mod parsing;
 /// ```
 /// - `METHOD` is the HTTP method, such as `GET`, `POST`, `PUT`, etc.
 /// - `PATH` is the path of the route, with optional path parameters and query parameters,
-///     e.g. `/item/:id?amount&offset`.
+///   e.g. `/item/:id?amount&offset`.
 /// - `STATE` is the type of axum-state, passed to the handler. This is optional, and if not
-///    specified, the state type is guessed based on the parameters of the handler.
+///   specified, the state type is guessed based on the parameters of the handler.
 ///
 /// # Example
 /// ```
@@ -97,6 +97,7 @@ pub fn route(attr: TokenStream, mut item: TokenStream) -> TokenStream {
 /// - `security` is the OpenApi security requirements.
 /// - `responses` are the OpenApi responses.
 /// - `transform` is a closure that takes an `TransformOperation` and returns an `TransformOperation`.
+///
 /// This may override the other options. (see the crate `aide` for more information).
 ///
 /// # Example

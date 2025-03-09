@@ -90,17 +90,17 @@
           '';
         };
         packages = {
-          default = pkgs.callPackage ./package.nix { };
+          # default = pkgs.callPackage ./package.nix { };
         };
       }) // {
       hydraJobs =
         let
           system = "x86_64-linux";
-          packages = self.packages."${system}";
+          # packages = self.packages."${system}";
           devShells = self.devShells."${system}";
         in
         {
-          inherit packages devShells;
+          inherit devShells;
         };
     };
 }

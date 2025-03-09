@@ -113,7 +113,6 @@ async fn test_wildcard() {
     assert_eq!(response.json::<String>(), "foo/bar");
 }
 
-
 #[cfg(feature = "aide")]
 mod aide_support {
     use super::*;
@@ -231,4 +230,3 @@ mod aide_support {
             .unwrap()
     }
 }
-

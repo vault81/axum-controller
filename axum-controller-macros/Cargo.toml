@@ -15,7 +15,7 @@ version.workspace = true
 prettyplease = "0.2"
 proc-macro2 = "1"
 quote = "1"
-syn = { version = "2", features = ["parsing"] }
+syn = { version = "2", features = ["extra-traits", "parsing", "printing"] }
 
 [dev-dependencies]
 axum = { version = "0.8", features = [] }

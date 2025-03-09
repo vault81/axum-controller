@@ -101,7 +101,7 @@ dependencies = [
 
 [[package]]
 name = "axum-controller"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "axum",
  "axum-controller-macros",
@@ -114,7 +114,7 @@ dependencies = [
 
 [[package]]
 name = "axum-controller-macros"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "axum",
  "prettyplease",

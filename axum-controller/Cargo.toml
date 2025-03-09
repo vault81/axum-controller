@@ -12,8 +12,8 @@ repository.workspace = true
 version.workspace = true
 
 [dependencies]
-axum-controller-macros = { path = "../axum-controller-macros", version = "0.2.0" }
-axum-typed-routing = { path = "../vendor/axum-typed-routing", version = "0.2.0" }
+axum-controller-macros = { path = "../axum-controller-macros", version = "0.2.1" }
+axum-typed-routing = { path = "../vendor/axum-typed-routing", version = "0.2.0", features = [ "aide"] }
 
 [dev-dependencies]
 axum = "0.8"

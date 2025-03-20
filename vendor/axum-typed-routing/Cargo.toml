@@ -41,7 +41,6 @@ path = "src/lib.rs"
 [[example]]
 name = "aide"
 path = "examples/aide.rs"
-features = ["aide"]
 
 [[example]]
 name = "basic"

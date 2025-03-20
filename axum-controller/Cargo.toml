@@ -17,7 +17,7 @@ axum-typed-routing = { path = "../vendor/axum-typed-routing", version = "0.2.0"}
 
 [dev-dependencies]
 axum = "0.8"
-axum-typed-routing = { path = "../vendor/axum-typed-routing", version = "0.2.0", features = ["aide"]}
+axum-typed-routing = { path = "../vendor/axum-typed-routing", version = "0.2.0", features = []}
 axum-test = { version = "17", features = [] }
 json = "0.12"
 serde = { version = "1", features = ["derive"] }

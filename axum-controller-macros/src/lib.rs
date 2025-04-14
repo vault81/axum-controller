@@ -2,9 +2,9 @@
 use proc_macro::TokenStream;
 use proc_macro2::Ident;
 use syn::{
-    ItemImpl, MetaNameValue,
     parse::{Parse, ParseStream},
     punctuated::Punctuated,
+    ItemImpl, MetaNameValue,
 };
 #[macro_use]
 extern crate quote;

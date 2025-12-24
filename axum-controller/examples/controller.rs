@@ -1,6 +1,8 @@
 use axum::extract::State;
 use axum_controller::*;
 
+use axum_typed_routing::route;
+use axum_typed_routing::TypedRouter;
 struct ExampleController;
 
 async fn my_middleware(

@@ -15,5 +15,3 @@
 //! ```
 
 pub use axum_controller_macros::controller;
-pub use axum_typed_routing::route;
-pub use axum_typed_routing::TypedRouter;

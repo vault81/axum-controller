@@ -3,7 +3,6 @@
   nixConfig = {
     extra-substituters = [
       "https://nixcache.vlt81.de"
-      "https://cuda-maintainers.cachix.org"
     ];
     extra-trusted-public-keys = [
       "nixcache.vlt81.de:nw0FfUpePtL6P3IMNT9X6oln0Wg9REZINtkkI9SisqQ="
@@ -13,7 +12,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     rust-overlay.url = "github:oxalica/rust-overlay";
     flake-utils.url = "github:numtide/flake-utils";
-    flake-parts.url = "github:hercules-ci/flake-parts";
     devshell.url = "github:numtide/devshell";
   };
 
@@ -42,14 +40,7 @@
           };
         };
         buildInputs = with pkgs; [
-          zlib
-          clang
-          libclang
-          gzip
-          coreutils
-          gdb
-          glib
-          glibc
+	#
         ];
       in
       {
@@ -83,24 +74,10 @@
             ++ buildInputs;
 
           buildInputs = buildInputs;
+          LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath buildInputs}";
+          MALLOC_CONF = "thp:always,metadata_thp:always";
           shellHook = ''
-            # export NIX_LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath buildInputs}:$NIX_LD_LIBRARY_PATH
-            export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath buildInputs}"
-            export MALLOC_CONF=thp:always,metadata_thp:always
           '';
         };
-        packages = {
-          # default = pkgs.callPackage ./package.nix { };
-        };
-      }) // {
-      hydraJobs =
-        let
-          system = "x86_64-linux";
-          # packages = self.packages."${system}";
-          devShells = self.devShells."${system}";
-        in
-        {
-          inherit devShells;
-        };
-    };
+      });
 }

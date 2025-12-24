@@ -13,12 +13,11 @@ version.workspace = true
 
 [dependencies]
 axum-controller-macros = { path = "../axum-controller-macros", version = "0.3" }
-axum-typed-routing = { path = "../vendor/axum-typed-routing", version = "0.2.0"}
 
 [dev-dependencies]
 axum = "0.8"
-axum-typed-routing = { path = "../vendor/axum-typed-routing", version = "0.2", features = []}
 axum-test = { version = "17", features = [] }
+axum-typed-routing = { version = "0.4" }
 json = "0.12"
 serde = { version = "1", features = ["derive"] }
 tokio = { version = "1", features = ["full"] }

@@ -3,7 +3,6 @@ use axum_controller::*;
 
 use axum_typed_routing::route;
 use axum_typed_routing::TypedRouter;
-struct ExampleController;
 
 async fn my_middleware(
     request: axum::extract::Request,
@@ -21,6 +20,8 @@ async fn my_other_middleware(
 
 #[derive(Clone, Debug)]
 struct AppState();
+
+struct ExampleController;
 
 #[controller(
     path = "/asd",

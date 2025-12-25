@@ -1,6 +1,7 @@
 [![Crates.io](https://img.shields.io/crates/v/axum-controller)](https://crates.io/crates/axum-controller)
 [![Documentation](https://docs.rs/axum-controller/badge.svg)](https://docs.rs/axum-controller)
 ![Maintenance](https://img.shields.io/badge/maintenance-deprecated-red.svg)
+[![unsafe forbidden](https://img.shields.io/badge/unsafe-forbidden-success.svg)](https://github.com/rust-secure-code/safety-dance/)
 
 # DEPRECATED
 

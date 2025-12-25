@@ -14,6 +14,7 @@
 #![doc = include_str!("../examples/controller.rs")]
 //! ```
 
+#![forbid(unsafe_code)]
 #![feature(proc_macro_diagnostic)]
 use proc_macro::TokenStream;
 use proc_macro2::Ident;

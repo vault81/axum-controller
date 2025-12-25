@@ -113,11 +113,12 @@ impl Parse for MyItem {
 /// A macro that generates a into_router(\_: State<_>) impl which automatically wires up all `route`'s and the given middlewares, path-prefix etc
 ///
 /// ## Syntax:
-/// ```ignore
+/// ```
+/// use axum_controller::controller;
+///
+/// struct ExampleController;
 /// #[controller(
 ///   path = "/asd",
-///   state = AppState,
-///   middleware=my_middleware
 /// )]
 /// impl ExampleController { /* ... */ }
 /// ```

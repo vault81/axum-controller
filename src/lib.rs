@@ -1,3 +1,19 @@
+#![doc = include_str!("../README.md")]
+//!
+//! ## Basic route macro usage
+//! See the docs of [`axum_typed_routing`] for details on the route macro.
+//! For convenience we re-export the route macro & TypedRouter for you
+//! so that all you need to use on your side is `use axum_controller::*`
+//!
+//! ## Controller macro usage
+//!
+//! This crate also offers a controller() attribute macro.
+//! use it like this:
+//!
+//! ```
+#![doc = include_str!("../examples/controller.rs")]
+//! ```
+
 #![feature(proc_macro_diagnostic)]
 use proc_macro::TokenStream;
 use proc_macro2::Ident;
@@ -25,7 +41,7 @@ impl Parse for MyAttrs {
         let mut state: Option<syn::Expr> = None;
         let mut middlewares: Vec<syn::Expr> = Vec::new();
 
-        // parse while stuff returns
+        // some = "values", seperated = "with", commas = true
         for nv in Punctuated::<MetaNameValue, Token![,]>::parse_terminated(input)?.into_iter() {
             let segs = nv.path.segments.clone().into_pairs();
             let seg = segs.into_iter().next().unwrap().into_value();

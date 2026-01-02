@@ -13,9 +13,7 @@ See the [docs](https://docs.rs/axum-controller) for more information.
 
 ## Licensing
 
-This repository, like all my personal projects, is licensed under the **GNU Affero General Public License v3.0 or later (AGPL-3.0-or-later)**. This ensures that modifications to the code remain open source when used in network services.
-
-If the AGPL license doesn't suit your needs, a version under more permissive terms (like **MIT**, **Apache**, or **BSD** license) is available. Please contact me directly via the email in the crate metadata for licensing inquiries.
+This repository, is licensed under the **GNU Affero General Public License v3.0 or later (AGPL-3.0-or-later)**. This ensures that modifications to the code remain open source when used in network services.
 
 ## Inspiration & Influences
 

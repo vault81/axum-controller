@@ -5,9 +5,13 @@
 
 # Axum-Controller
 
-Helper macro's for wiring up axum routes with less boilerplate.
+Helper macros for wiring up axum routes with less boilerplate.
 
-See example [here](axum-controller/examples/controller.rs).
+This crate is an extension of [axum-typed-routing](https://lib.rs/crates/axum-typed-routing).
+It uses the `#[route]` attribute and `TypedRouter` trait from that crate.
+You **must** add `axum-typed-routing` to your own `Cargo.toml` dependencies.
+
+See example [here](examples/controller.rs).
 
 See the [docs](https://docs.rs/axum-controller) for more information.
 

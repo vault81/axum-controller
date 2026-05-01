@@ -1,3 +1,7 @@
+# Unreleased
+
+- Document that this crate is an extension of `axum-typed-routing` and that it must be added as a dependency by users
+
 # 0.4.3
 
 Add a bunch of small tweaks:

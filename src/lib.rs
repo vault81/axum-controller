@@ -1,7 +1,12 @@
 #![doc = include_str!("../README.md")]
 //!
+//! This crate is an extension of [`axum_typed_routing`]. It uses the `#[route]`
+//! attribute and the `TypedRouter` trait from that crate to discover and wire up
+//! handler methods. You **must** add `axum-typed-routing` to your own
+//! `Cargo.toml` dependencies for this crate to work.
+//!
 //! ## Route macro usage
-//! See the docs of [`axum_typed_routing`] for details on the route macro.
+//! See the docs of [`axum_typed_routing`] for details on the `#[route]` macro.
 //!
 //! ## Controller macro usage
 //!
@@ -113,7 +118,6 @@ impl Parse for ControllerImpl {
     }
 }
 
-// TODO add better docs
 /// A macro that generates a `into_router`(\_: State<_>) impl which automatically wires up all `route`'s and the given middlewares, path-prefix etc
 ///
 /// ## Syntax:

@@ -32,13 +32,13 @@ use syn::{
 };
 
 #[derive(Clone, Default)]
-struct MyAttrs {
+struct ControllerAttrs {
     middlewares: Vec<syn::Expr>,
     path: Option<syn::Expr>,
     state: Option<syn::Expr>,
 }
 
-impl Parse for MyAttrs {
+impl Parse for ControllerAttrs {
     fn parse(input: ParseStream) -> syn::Result<Self> {
         let mut path: Option<syn::Expr> = None;
         let mut state: Option<syn::Expr> = None;
@@ -89,12 +89,12 @@ impl Parse for MyAttrs {
 }
 
 #[derive(Clone)]
-struct MyItem {
+struct ControllerImpl {
     struct_name: syn::Type,
     route_fns: Vec<syn::Ident>,
 }
 
-impl Parse for MyItem {
+impl Parse for ControllerImpl {
     fn parse(input: ParseStream) -> syn::Result<Self> {
         let ast: ItemImpl = input.parse()?;
         let struct_name = *(ast.clone().self_ty.clone());
@@ -142,21 +142,20 @@ impl Parse for MyItem {
 ///   - Middlewares to `.layer` in the created router
 ///
 #[proc_macro_attribute]
-pub fn controller(attr: TokenStream, item: TokenStream) -> TokenStream {
-    let args = match syn::parse::<MyAttrs>(attr) {
+pub fn controller(attrs: TokenStream, c_impl: TokenStream) -> TokenStream {
+    let parsed_attrs = match syn::parse::<ControllerAttrs>(attrs) {
         Ok(args) => args,
         Err(err) => return err.to_compile_error().into(),
     };
-    let item2: proc_macro2::TokenStream = item.clone().into();
-    let myimpl = match syn::parse::<MyItem>(item.clone()) {
+    let parsed_impl = match syn::parse::<ControllerImpl>(c_impl.clone()) {
         Ok(myimpl) => myimpl,
         Err(err) => return err.to_compile_error().into(),
     };
 
-    let state = args.state.unwrap_or_else(|| parse_quote!(()));
-    let route_fns = myimpl.route_fns;
-    let struct_name = &myimpl.struct_name;
-    let route = args.path.unwrap_or_else(|| syn::parse_quote!("/"));
+    let state = parsed_attrs.state.unwrap_or_else(|| parse_quote!(()));
+    let route_fns = parsed_impl.route_fns;
+    let struct_name = &parsed_impl.struct_name;
+    let route = parsed_attrs.path.unwrap_or_else(|| syn::parse_quote!("/"));
 
     let no_routes_warning = if route_fns.is_empty() {
         quote! {
@@ -198,7 +197,7 @@ pub fn controller(attr: TokenStream, item: TokenStream) -> TokenStream {
         nested_router_qoute
     };
 
-    let middleware_calls = args
+    let middleware_calls = parsed_attrs
         .middlewares
         .clone()
         .into_iter()
@@ -225,8 +224,9 @@ pub fn controller(attr: TokenStream, item: TokenStream) -> TokenStream {
         }
     };
 
+    let c_impl: proc_macro2::TokenStream = c_impl.clone().into();
     let res: TokenStream = quote! {
-        #item2
+        #c_impl
         #from_controller_into_router_impl
         #no_routes_warning
     }

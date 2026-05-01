@@ -1,0 +1,20 @@
+error:
+               intentional error to provoke a compile error so the stderr
+               (which includes the no-routes warning) can be checked via compile_fail
+
+  --> tests/errors/no_routes.rs:13:5
+   |
+13 | /     compile_error!("
+14 | |         intentional error to provoke a compile error so the stderr
+15 | |         (which includes the no-routes warning) can be checked via compile_fail
+16 | |     ")
+   | |______^
+
+warning: use of deprecated constant `__AXUM_CONTROLLER_NO_ROUTES_WARNING`: #[controller] applied to impl with no #[route] attributes
+ --> tests/errors/no_routes.rs:5:1
+  |
+5 | #[controller]
+  | ^^^^^^^^^^^^^
+  |
+  = note: `#[warn(deprecated)]` on by default
+  = note: this warning originates in the attribute macro `controller` (in Nightly builds, run with -Z macro-backtrace for more info)

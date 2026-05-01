@@ -158,6 +158,16 @@ pub fn controller(attr: TokenStream, item: TokenStream) -> TokenStream {
     let struct_name = &myimpl.struct_name;
     let route = args.path.unwrap_or_else(|| syn::parse_quote!("/"));
 
+    let no_routes_warning = if route_fns.is_empty() {
+        quote! {
+            #[deprecated(note = "#[controller] applied to impl with no #[route] attributes")]
+            const __AXUM_CONTROLLER_NO_ROUTES_WARNING: () = ();
+            const _: () = __AXUM_CONTROLLER_NO_ROUTES_WARNING;
+        }
+    } else {
+        quote! {}
+    };
+
     let route_calls = route_fns
         .into_iter()
         .map(move |route| {
@@ -218,6 +228,7 @@ pub fn controller(attr: TokenStream, item: TokenStream) -> TokenStream {
     let res: TokenStream = quote! {
         #item2
         #from_controller_into_router_impl
+        #no_routes_warning
     }
     .into();
 

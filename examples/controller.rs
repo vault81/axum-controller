@@ -1,5 +1,5 @@
 use axum::extract::State;
-use axum_controller::*;
+use axum_controller::controller;
 
 use axum_typed_routing::route;
 use axum_typed_routing::TypedRouter;

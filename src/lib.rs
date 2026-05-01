@@ -15,19 +15,21 @@
 //! ```
 
 #![forbid(unsafe_code)]
-#![feature(proc_macro_diagnostic)]
+
 use proc_macro::TokenStream;
 use proc_macro2::Ident;
-use syn::{
-    parse::{Parse, ParseStream},
-    punctuated::Punctuated,
-    ItemImpl, MetaNameValue,
-};
+
 #[macro_use]
 extern crate quote;
 
 #[macro_use]
 extern crate syn;
+
+use syn::{
+    parse::{Parse, ParseStream},
+    punctuated::Punctuated,
+    ItemImpl, MetaNameValue,
+};
 
 #[derive(Clone, Default)]
 struct MyAttrs {
@@ -42,7 +44,6 @@ impl Parse for MyAttrs {
         let mut state: Option<syn::Expr> = None;
         let mut middlewares: Vec<syn::Expr> = Vec::new();
 
-        // some = "values", seperated = "with", commas = true
         for nv in Punctuated::<MetaNameValue, Token![,]>::parse_terminated(input)? {
             let segs = nv.path.segments.clone().into_pairs();
             let seg = segs.into_iter().next().unwrap().into_value();
@@ -50,14 +51,17 @@ impl Parse for MyAttrs {
             match ident.to_string().as_str() {
                 "path" => {
                     if path.is_some() {
-                        return Err(syn::Error::new_spanned(path, "duplicate `path` attribute"));
+                        return Err(syn::Error::new_spanned(
+                            &nv.path,
+                            "duplicate `path` attribute",
+                        ));
                     }
                     path = Some(nv.value);
                 }
                 "state" => {
                     if state.is_some() {
                         return Err(syn::Error::new_spanned(
-                            state,
+                            &nv.path,
                             "duplicate `state` attribute",
                         ));
                     }
@@ -65,12 +69,17 @@ impl Parse for MyAttrs {
                 }
                 "middleware" => middlewares.push(nv.value),
                 _ => {
-                    panic!(
-                        "Unknown attribute given to controller macro, only path,state & middleware allowed"
-                    )
+                    return Err(syn::Error::new_spanned(
+                        &nv.path,
+                        format_args!(
+                            "unknown attribute `{}`; expected `path`, `state`, or `middleware`",
+                            ident
+                        ),
+                    ));
                 }
             }
         }
+
         Ok(Self {
             middlewares,
             path,
@@ -93,7 +102,6 @@ impl Parse for MyItem {
 
         for item in &ast.items {
             if let syn::ImplItem::Fn(impl_item_fn) = item {
-                // let fn_name = &impl_item_fn.sig.ident;
                 for attr in impl_item_fn.attrs.clone() {
                     if attr.path().is_ident("route") {
                         let fn_name: Ident = impl_item_fn.sig.ident.clone();
@@ -135,14 +143,20 @@ impl Parse for MyItem {
 ///
 #[proc_macro_attribute]
 pub fn controller(attr: TokenStream, item: TokenStream) -> TokenStream {
-    let args = parse_macro_input!(attr as MyAttrs);
+    let args = match syn::parse::<MyAttrs>(attr) {
+        Ok(args) => args,
+        Err(err) => return err.to_compile_error().into(),
+    };
     let item2: proc_macro2::TokenStream = item.clone().into();
-    let myimpl = parse_macro_input!(item as MyItem);
+    let myimpl = match syn::parse::<MyItem>(item.clone()) {
+        Ok(myimpl) => myimpl,
+        Err(err) => return err.to_compile_error().into(),
+    };
 
-    let state = args.state.unwrap_or(parse_quote!(()));
+    let state = args.state.unwrap_or_else(|| parse_quote!(()));
     let route_fns = myimpl.route_fns;
     let struct_name = &myimpl.struct_name;
-    let route = args.path.unwrap_or(syn::parse_quote!("/"));
+    let route = args.path.unwrap_or_else(|| syn::parse_quote!("/"));
 
     let route_calls = route_fns
         .into_iter()

@@ -1,0 +1,19 @@
+error: duplicate `state` attribute
+ --> tests/errors/duplicate_state.rs:7:34
+  |
+7 | #[controller(state = MyAppState, state = MyAppState)]
+  |                                  ^^^^^
+
+warning: unused import: `axum_typed_routing::route`
+ --> tests/errors/duplicate_state.rs:2:5
+  |
+2 | use axum_typed_routing::route;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `axum_typed_routing::TypedRouter`
+ --> tests/errors/duplicate_state.rs:3:5
+  |
+3 | use axum_typed_routing::TypedRouter;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

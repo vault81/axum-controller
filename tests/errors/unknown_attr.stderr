@@ -1,0 +1,19 @@
+error: unknown attribute `unknown_attr`; expected `path`, `state`, or `middleware`
+ --> tests/errors/unknown_attr.rs:7:14
+  |
+7 | #[controller(unknown_attr = "value")]
+  |              ^^^^^^^^^^^^
+
+warning: unused import: `axum_typed_routing::route`
+ --> tests/errors/unknown_attr.rs:2:5
+  |
+2 | use axum_typed_routing::route;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `axum_typed_routing::TypedRouter`
+ --> tests/errors/unknown_attr.rs:3:5
+  |
+3 | use axum_typed_routing::TypedRouter;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

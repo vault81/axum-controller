@@ -1,0 +1,19 @@
+error: expected `=`
+ --> tests/errors/invalid_attr_syntax.rs:7:19
+  |
+7 | #[controller(this is not valid attr syntax ===)]
+  |                   ^^
+
+warning: unused import: `axum_typed_routing::route`
+ --> tests/errors/invalid_attr_syntax.rs:2:5
+  |
+2 | use axum_typed_routing::route;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `axum_typed_routing::TypedRouter`
+ --> tests/errors/invalid_attr_syntax.rs:3:5
+  |
+3 | use axum_typed_routing::TypedRouter;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

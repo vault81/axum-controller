@@ -1,0 +1,19 @@
+error: duplicate `path` attribute
+ --> tests/errors/duplicate_path.rs:7:27
+  |
+7 | #[controller(path = "/a", path = "/b")]
+  |                           ^^^^
+
+warning: unused import: `axum_typed_routing::route`
+ --> tests/errors/duplicate_path.rs:2:5
+  |
+2 | use axum_typed_routing::route;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `axum_typed_routing::TypedRouter`
+ --> tests/errors/duplicate_path.rs:3:5
+  |
+3 | use axum_typed_routing::TypedRouter;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

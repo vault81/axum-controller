@@ -2,12 +2,12 @@
 //!
 //! ## Basic route macro usage
 //! See the docs of [`axum_typed_routing`] for details on the route macro.
-//! For convenience we re-export the route macro & TypedRouter for you
+//! For convenience we re-export the route macro & `TypedRouter` for you
 //! so that all you need to use on your side is `use axum_controller::*`
 //!
 //! ## Controller macro usage
 //!
-//! This crate also offers a controller() attribute macro.
+//! This crate also offers a `controller()` attribute macro.
 //! use it like this:
 //!
 //! ```
@@ -43,7 +43,7 @@ impl Parse for MyAttrs {
         let mut middlewares: Vec<syn::Expr> = Vec::new();
 
         // some = "values", seperated = "with", commas = true
-        for nv in Punctuated::<MetaNameValue, Token![,]>::parse_terminated(input)?.into_iter() {
+        for nv in Punctuated::<MetaNameValue, Token![,]>::parse_terminated(input)? {
             let segs = nv.path.segments.clone().into_pairs();
             let seg = segs.into_iter().next().unwrap().into_value();
             let ident = seg.ident;
@@ -72,9 +72,9 @@ impl Parse for MyAttrs {
             }
         }
         Ok(Self {
-            state,
-            path,
             middlewares,
+            path,
+            state,
         })
     }
 }
@@ -91,7 +91,7 @@ impl Parse for MyItem {
         let struct_name = *(ast.clone().self_ty.clone());
         let mut route_fns: Vec<syn::Ident> = vec![];
 
-        for item in ast.items.iter() {
+        for item in &ast.items {
             if let syn::ImplItem::Fn(impl_item_fn) = item {
                 // let fn_name = &impl_item_fn.sig.ident;
                 for attr in impl_item_fn.attrs.clone() {
@@ -104,14 +104,14 @@ impl Parse for MyItem {
         }
 
         Ok(Self {
-            route_fns,
             struct_name,
+            route_fns,
         })
     }
 }
 
 // TODO add better docs
-/// A macro that generates a into_router(\_: State<_>) impl which automatically wires up all `route`'s and the given middlewares, path-prefix etc
+/// A macro that generates a `into_router`(\_: State<_>) impl which automatically wires up all `route`'s and the given middlewares, path-prefix etc
 ///
 /// ## Syntax:
 /// ```

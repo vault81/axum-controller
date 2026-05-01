@@ -18,12 +18,9 @@
 
 use proc_macro::TokenStream;
 use proc_macro2::Ident;
-
-#[macro_use]
-extern crate quote;
-
-#[macro_use]
-extern crate syn;
+use quote::quote;
+use syn::parse_quote;
+use syn::Token;
 
 use syn::{
     parse::{Parse, ParseStream},

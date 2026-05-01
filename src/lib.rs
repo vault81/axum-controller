@@ -177,7 +177,7 @@ pub fn controller(attrs: TokenStream, c_impl: TokenStream) -> TokenStream {
         .nest(#route, nested_router)
     };
 
-    let nested_router_qoute = quote! {
+    let nested_router_quote = quote! {
         axum::Router::new()
         #nesting_call
     };
@@ -188,10 +188,10 @@ pub fn controller(attrs: TokenStream, c_impl: TokenStream) -> TokenStream {
         if lit.eq(&syn::parse_quote!("/")) {
             unnested_router_quote
         } else {
-            nested_router_qoute
+            nested_router_quote
         }
     } else {
-        nested_router_qoute
+        nested_router_quote
     };
 
     let middleware_calls = parsed_attrs

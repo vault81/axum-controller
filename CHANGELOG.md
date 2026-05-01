@@ -1,6 +1,7 @@
 # Unreleased
 
 - Document that this crate is an extension of `axum-typed-routing` and that it must be added as a dependency by users
+- Rename `into_stateless_router` to `into_app_router` to accurately reflect that it converts a stateful router into a stateless one by providing the state
 
 # 0.4.3
 

@@ -71,7 +71,7 @@ impl ExampleController {
     }
 }
 impl ExampleController {
-    pub fn into_stateless_router(state: AppState) -> axum::Router<()> {
+    pub fn into_app_router(state: AppState) -> axum::Router<()> {
         Self::into_router().with_state(state)
     }
     pub fn into_router() -> axum::Router<AppState> {
@@ -85,7 +85,5 @@ impl ExampleController {
 }
 fn main() {
     let _router_a: axum::Router<AppState> = ExampleController::into_router();
-    let _router_b: axum::Router<()> = ExampleController::into_stateless_router(
-        AppState(),
-    );
+    let _router_b: axum::Router<()> = ExampleController::into_app_router(AppState());
 }

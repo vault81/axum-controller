@@ -118,7 +118,9 @@ impl Parse for ControllerImpl {
     }
 }
 
-/// A macro that generates a `into_router`(\_: State<_>) impl which automatically wires up all `route`'s and the given middlewares, path-prefix etc
+/// A macro that generates `into_router` and `into_app_router` methods which
+/// automatically wire up all `#[route]` handlers and the given middlewares,
+/// path-prefix etc.
 ///
 /// ## Syntax:
 /// ```
@@ -205,10 +207,9 @@ pub fn controller(attrs: TokenStream, c_impl: TokenStream) -> TokenStream {
 
     let from_controller_into_router_impl = quote! {
         impl #struct_name {
-            pub fn into_stateless_router(state: #state) -> axum::Router<()> {
+            pub fn into_app_router(state: #state) -> axum::Router<()> {
                 Self::into_router()
                     .with_state(state)
-
             }
 
             pub fn into_router() -> axum::Router<#state> {
@@ -219,7 +220,6 @@ pub fn controller(attrs: TokenStream, c_impl: TokenStream) -> TokenStream {
 
                     #maybe_nesting_call
             }
-
         }
     };
 

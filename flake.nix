@@ -51,6 +51,7 @@
               bacon
               binaryen
               cacert
+              cargo-expand
               cargo-bloat
               cargo-docset
               cargo-machete

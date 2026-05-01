@@ -149,13 +149,12 @@ pub fn controller(attr: TokenStream, item: TokenStream) -> TokenStream {
         .map(move |route| {
             quote! {
             .typed_route(#struct_name :: #route)
-
                   }
         })
         .collect::<Vec<_>>();
 
     let nesting_call = quote! {
-        .nest(#route, __nested_router)
+        .nest(#route, nested_router)
     };
 
     let nested_router_qoute = quote! {
@@ -163,7 +162,7 @@ pub fn controller(attr: TokenStream, item: TokenStream) -> TokenStream {
         #nesting_call
     };
     let unnested_router_quote = quote! {
-        __nested_router
+        nested_router
     };
     let maybe_nesting_call = if let syn::Expr::Lit(lit) = route {
         if lit.eq(&syn::parse_quote!("/")) {
@@ -182,20 +181,23 @@ pub fn controller(attr: TokenStream, item: TokenStream) -> TokenStream {
         .map(|middleware| quote! {.layer(#middleware)})
         .collect::<Vec<_>>();
 
-    // TODO Checck if 2 possible to make 2 impls
-    // where state of parent router is ()
-    // one where it's #state
     let from_controller_into_router_impl = quote! {
         impl #struct_name {
-            pub fn into_router(state: #state) -> axum::Router<#state> {
-                let __nested_router = axum::Router::new()
+            pub fn into_stateless_router(state: #state) -> axum::Router<()> {
+                Self::into_router()
+                    .with_state(state)
+
+            }
+
+            pub fn into_router() -> axum::Router<#state> {
+                let nested_router = axum::Router::new()
                     #(#route_calls)*
                     #(#middleware_calls)*
-                    .with_state(state)
                     ;
 
                     #maybe_nesting_call
             }
+
         }
     };
 

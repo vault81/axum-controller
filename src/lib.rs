@@ -31,7 +31,7 @@ use syn::{
     ItemImpl, MetaNameValue,
 };
 
-#[derive(Clone, Default)]
+#[derive(Default)]
 struct ControllerAttrs {
     middlewares: Vec<syn::Expr>,
     path: Option<syn::Expr>,
@@ -88,21 +88,28 @@ impl Parse for ControllerAttrs {
     }
 }
 
-#[derive(Clone)]
 struct ControllerImpl {
-    struct_name: syn::Type,
+    struct_name: syn::Path,
     route_fns: Vec<syn::Ident>,
 }
 
 impl Parse for ControllerImpl {
     fn parse(input: ParseStream) -> syn::Result<Self> {
         let ast: ItemImpl = input.parse()?;
-        let struct_name = *(ast.clone().self_ty.clone());
+        let struct_name = match *ast.self_ty {
+            syn::Type::Path(syn::TypePath { path, .. }) => path,
+            other => {
+                return Err(syn::Error::new_spanned(
+                    other,
+                    "expected a path (struct name) as the impl target",
+                ))
+            }
+        };
         let mut route_fns: Vec<syn::Ident> = vec![];
 
         for item in &ast.items {
             if let syn::ImplItem::Fn(impl_item_fn) = item {
-                for attr in impl_item_fn.attrs.clone() {
+                for attr in &impl_item_fn.attrs {
                     if attr.path().is_ident("route") {
                         let fn_name: Ident = impl_item_fn.sig.ident.clone();
                         route_fns.push(fn_name);
@@ -179,7 +186,6 @@ pub fn controller(attrs: TokenStream, c_impl: TokenStream) -> TokenStream {
 
     let middleware_calls = parsed_attrs
         .middlewares
-        .clone()
         .into_iter()
         .map(|middleware| quote! {.layer(#middleware)})
         .collect::<Vec<_>>();
@@ -200,7 +206,7 @@ pub fn controller(attrs: TokenStream, c_impl: TokenStream) -> TokenStream {
         }
     };
 
-    let c_impl: proc_macro2::TokenStream = c_impl.clone().into();
+    let c_impl: proc_macro2::TokenStream = c_impl.into();
     let res: TokenStream = quote! {
         #c_impl
         #from_controller_into_router_impl

@@ -3,6 +3,8 @@
 - Document that this crate is an extension of `axum-typed-routing` and that it must be added as a dependency by users
 - Rename `into_stateless_router` to `into_app_router` to accurately reflect that it converts a stateful router into a stateless one by providing the state
 - Simplify path nesting to always use `.nest()` instead of special-casing `"/"`, removing fragile literal comparison logic
+- Remove unnecessary `.clone()` calls on `c_impl`, `middlewares`, attrs, and `ast`
+- Change `struct_name` type from `syn::Type` to `syn::Path` with a proper match instead of unwrapping through clones
 
 # 0.4.3
 

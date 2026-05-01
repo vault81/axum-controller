@@ -1,10 +1,11 @@
 # Unreleased
 
-- Document that this crate is an extension of `axum-typed-routing` and that it must be added as a dependency by users
+- Document that this crate acts as an extension of `axum-typed-routing` and that it must be added as a dependency by users
 - Rename `into_stateless_router` to `into_app_router` to accurately reflect that it converts a stateful router into a stateless one by providing the state
-- Simplify path nesting to always use `.nest()` instead of special-casing `"/"`, removing fragile literal comparison logic
+- Simplify path nesting to always use `.nest()` instead of special-casing `"/"`.
 - Remove unnecessary `.clone()` calls on `c_impl`, `middlewares`, attrs, and `ast`
-- Change `struct_name` type from `syn::Type` to `syn::Path` with a proper match instead of unwrapping through clones
+- Change `struct_name` type from `syn::Type` to `syn::Path` with a proper match instead of unwrapping
+- Fix grammar & spelling mistakes
 
 # 0.4.3
 
@@ -22,7 +23,7 @@ Add better error handling instead of panicking everywhere.
 
 # 0.4
 First actually nice version.
-- Got rid of explicit dep on axum-typed-router (unneded and as long as the interface doesn't change to drastically we should stay compatible even with major bumps).
+- Got rid of explicit dep on axum-typed-router (unnecessary and as long as the interface doesn't change too drastically we should stay compatible even with major bumps).
 - Merged seperate proc_macro crate
 - Loads of small tweaks
 

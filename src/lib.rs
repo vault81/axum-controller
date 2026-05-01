@@ -177,27 +177,6 @@ pub fn controller(attrs: TokenStream, c_impl: TokenStream) -> TokenStream {
         })
         .collect::<Vec<_>>();
 
-    let nesting_call = quote! {
-        .nest(#route, nested_router)
-    };
-
-    let nested_router_quote = quote! {
-        axum::Router::new()
-        #nesting_call
-    };
-    let unnested_router_quote = quote! {
-        nested_router
-    };
-    let maybe_nesting_call = if let syn::Expr::Lit(lit) = route {
-        if lit.eq(&syn::parse_quote!("/")) {
-            unnested_router_quote
-        } else {
-            nested_router_quote
-        }
-    } else {
-        nested_router_quote
-    };
-
     let middleware_calls = parsed_attrs
         .middlewares
         .clone()
@@ -208,8 +187,7 @@ pub fn controller(attrs: TokenStream, c_impl: TokenStream) -> TokenStream {
     let from_controller_into_router_impl = quote! {
         impl #struct_name {
             pub fn into_app_router(state: #state) -> axum::Router<()> {
-                Self::into_router()
-                    .with_state(state)
+                Self::into_router().with_state(state)
             }
 
             pub fn into_router() -> axum::Router<#state> {
@@ -217,8 +195,7 @@ pub fn controller(attrs: TokenStream, c_impl: TokenStream) -> TokenStream {
                     #(#route_calls)*
                     #(#middleware_calls)*
                     ;
-
-                    #maybe_nesting_call
+                axum::Router::new().nest(#route, nested_router)
             }
         }
     };

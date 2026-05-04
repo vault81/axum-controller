@@ -1,3 +1,6 @@
+# 0.5.1 (unreleased)
+- Revert: Simplify path nesting to always use `.nest()` instead of special-casing `"/"`.
+
 # 0.5.0
 
 - Document that this crate acts as an extension of `axum-typed-routing` and that it must be added as a dependency by users

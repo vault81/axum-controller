@@ -1,4 +1,4 @@
-# 0.5.1 (unreleased)
+# 0.5.1
 - Revert: Simplify path nesting to always use `.nest()` instead of special-casing `"/"`.
 
 # 0.5.0

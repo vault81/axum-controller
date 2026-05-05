@@ -1,3 +1,6 @@
+# 0.5.2
+- Set syn version more explicitly to avoid minimal-versions pitfalls ("2"=> "2.0.117")
+
 # 0.5.1
 - Revert: Simplify path nesting to always use `.nest()` instead of special-casing `"/"`.
 

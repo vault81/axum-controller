@@ -1,7 +1,7 @@
 [package]
 name = "axum-controller"
-version = "0.5.2"
-license = "AGPL-3.0-or-later"
+version = "0.5.3"
+license = "MPL-2.0"
 authors = ["Tristan Druyen <ek36g2vcc@mozmail.com>"]
 categories = ["web-programming"]
 description = "Helper macros for better readability of axum handlers"

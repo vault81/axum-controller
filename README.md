@@ -17,7 +17,9 @@ See the [docs](https://docs.rs/axum-controller) for more information.
 
 ## Licensing
 
-This repository, is licensed under the **GNU Affero General Public License v3.0 or later (AGPL-3.0-or-later)**. This ensures that modifications to the code remain open source when used in network services.
+This repository, is licensed under the **Mozilla Public License v2.0 (MPL-2.0)**. You're free to use this library in proprietary software as long as you publish your modifications under the MPL-2.0. 
+
+You can find a copy of the licenses at ./LICENSE.md.
 
 ## Inspiration & Influences
 

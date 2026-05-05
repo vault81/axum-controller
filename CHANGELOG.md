@@ -1,3 +1,6 @@
+# 0.5.3
+- Relicense under MPL-2.0 instead of just AGPL-3.0-or-later.
+
 # 0.5.2
 - Set syn version more explicitly to avoid minimal-versions pitfalls ("2"=> "2.0.117")
 
